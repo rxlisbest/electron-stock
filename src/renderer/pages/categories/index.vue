@@ -27,10 +27,11 @@
           label="地址">
         </el-table-column>
       </el-table>
+
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="1000">
+        :total="1000" class="pagination">
       </el-pagination>
     </el-main>
   </el-container>
@@ -113,5 +114,9 @@
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  .pagination{
+    margin: 10px auto;
+    text-align: center;
   }
 </style>
