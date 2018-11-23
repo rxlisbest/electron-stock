@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'landing-page',
-      component: require('@/pages/goods/add').default
+      component: require('@/pages/cart/index').default
     },
     {
       path: '*',
