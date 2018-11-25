@@ -1,40 +1,80 @@
 <template>
   <el-container style="height: 500px;">
-    <el-aside style="height: 500px; border: 1px solid #eee">
-      <el-menu :default-openeds="['1', '3']">
-        <el-submenu index="1">
-          <template slot="title"><i class="el-icon-message"></i>导航一</template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
+    <el-row>
+      <el-col :span="8">
+        <el-aside style="height: 500px; border: 1px solid #eee">
+          <el-menu :default-openeds="['1', '2']">
             <el-menu-item index="1-1">选项1</el-menu-item>
             <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
             <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-      </el-menu>
-    </el-aside>
-    <el-aside style="height: 500px; border: 1px solid #eee">
-      <el-row class="row-bg">
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-      </el-row>
-    </el-aside>
+            <el-menu-item index="1-4">选项4</el-menu-item>
+            <el-menu-item index="1-5">选项5</el-menu-item>
+            <el-menu-item index="1-6">选项6</el-menu-item>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-4">选项4</el-menu-item>
+            <el-menu-item index="1-5">选项5</el-menu-item>
+            <el-menu-item index="1-6">选项6</el-menu-item>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-4">选项4</el-menu-item>
+            <el-menu-item index="1-5">选项5</el-menu-item>
+            <el-menu-item index="1-6">选项6</el-menu-item>
+          </el-menu>
+        </el-aside>
+      </el-col>
+      <el-col :span="8">
+        <el-aside style="height: 500px; border: 1px solid #eee">
+          <el-row class="row-bg">
+            <el-col :span="8"><div class="grid-content bg-purple">1</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple-light">2</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple">3</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple-light">4</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple">5</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple-light">6</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple">1</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple-light">2</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple">3</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple-light">4</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple">5</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple-light">6</div></el-col>
+          </el-row>
+        </el-aside>
+      </el-col>
+      <el-col :span="8">
+        <el-aside style="height: 500px; border: 1px solid #eee">
+          <el-menu :default-openeds="['1', '2']">
+            <el-menu-item index="1-1">
+              选项1
+              <el-input-number size="mini" v-model="num6"></el-input-number>
+            </el-menu-item>
+            <el-menu-item index="1-1">
+              选项1
+              <el-input-number size="small" v-model="num6"></el-input-number>
+            </el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-4">选项4</el-menu-item>
+            <el-menu-item index="1-5">选项5</el-menu-item>
+            <el-menu-item index="1-6">选项6</el-menu-item>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-4">选项4</el-menu-item>
+            <el-menu-item index="1-5">选项5</el-menu-item>
+            <el-menu-item index="1-6">选项6</el-menu-item>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-4">选项4</el-menu-item>
+            <el-menu-item index="1-5">选项5</el-menu-item>
+            <el-menu-item index="1-6">选项6</el-menu-item>
+          </el-menu>
+        </el-aside>
+      </el-col>
+    </el-row>
   </el-container>
 </template>
 
@@ -48,7 +88,8 @@
     Aside,
     Menu,
     Submenu,
-    MenuItem
+    MenuItem,
+    InputNumber
   } from 'element-ui'
   import Layout from '../../components/layout'
 
@@ -64,7 +105,8 @@
       Aside,
       Menu,
       Submenu,
-      MenuItem
+      MenuItem,
+      InputNumber
     },
     methods: {
       open (link) {
