@@ -1,8 +1,8 @@
 <template>
   <el-container style="height: 500px;">
-    <el-row>
+    <el-row style="width: 100%;">
       <el-col :span="8">
-        <el-aside style="height: 500px; border: 1px solid #eee">
+        <div style="height: 500px; border: 1px solid #eee; overflow: auto;">
           <el-menu :default-openeds="['1', '2']">
             <el-menu-item index="1-1">选项1</el-menu-item>
             <el-menu-item index="1-2">选项2</el-menu-item>
@@ -23,10 +23,10 @@
             <el-menu-item index="1-5">选项5</el-menu-item>
             <el-menu-item index="1-6">选项6</el-menu-item>
           </el-menu>
-        </el-aside>
+        </div>
       </el-col>
       <el-col :span="8">
-        <el-aside style="height: 500px; border: 1px solid #eee">
+        <div style="height: 500px; border: 1px solid #eee; overflow: auto;">
           <el-row class="row-bg">
             <el-col :span="8"><div class="grid-content bg-purple">1</div></el-col>
             <el-col :span="8"><div class="grid-content bg-purple-light">2</div></el-col>
@@ -41,38 +41,33 @@
             <el-col :span="8"><div class="grid-content bg-purple">5</div></el-col>
             <el-col :span="8"><div class="grid-content bg-purple-light">6</div></el-col>
           </el-row>
-        </el-aside>
+        </div>
       </el-col>
       <el-col :span="8">
-        <el-aside style="height: 500px; border: 1px solid #eee">
-          <el-menu :default-openeds="['1', '2']">
-            <el-menu-item index="1-1">
+        <div style="height: 430px; border: 1px solid #eee; overflow: auto; padding-top: 20px;">
+          <el-row v-for="o in 6" :key="o">
+            <el-col :md="12">
               选项1
-              <el-input-number size="mini" v-model="num6"></el-input-number>
-            </el-menu-item>
-            <el-menu-item index="1-1">
-              选项1
-              <el-input-number size="small" v-model="num6"></el-input-number>
-            </el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            <el-menu-item index="1-4">选项4</el-menu-item>
-            <el-menu-item index="1-5">选项5</el-menu-item>
-            <el-menu-item index="1-6">选项6</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            <el-menu-item index="1-4">选项4</el-menu-item>
-            <el-menu-item index="1-5">选项5</el-menu-item>
-            <el-menu-item index="1-6">选项6</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            <el-menu-item index="1-4">选项4</el-menu-item>
-            <el-menu-item index="1-5">选项5</el-menu-item>
-            <el-menu-item index="1-6">选项6</el-menu-item>
-          </el-menu>
-        </el-aside>
+            </el-col>
+            <el-col :md="8">
+                <el-input-number size="mini" v-model="num6" style="width: 100%;"></el-input-number>
+            </el-col>
+            <el-col :md="4" style="text-align: center;">
+              <el-button size="mini" type="danger" icon="el-icon-delete" circle></el-button>
+            </el-col>
+          </el-row>
+        </div>
+        <div style="width: 100%; position: relative; height: 48px; border: 1px solid #eee;">
+          <el-row type="flex" class="row-bg" justify="space-between" style="height: 100%;">
+            <el-col :md="8" style="text-align: center;">
+              合计
+            </el-col>
+            <el-col :md="8" style="text-align: center;">
+              ￥1000.00
+            </el-col>
+          </el-row>
+        </div>
+        </div>
       </el-col>
     </el-row>
   </el-container>
@@ -89,7 +84,8 @@
     Menu,
     Submenu,
     MenuItem,
-    InputNumber
+    InputNumber,
+    Button
   } from 'element-ui'
   import Layout from '../../components/layout'
 
@@ -106,7 +102,8 @@
       Menu,
       Submenu,
       MenuItem,
-      InputNumber
+      InputNumber,
+      Button
     },
     methods: {
       open (link) {
