@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 500px;">
     <el-row style="width: 100%;">
-      <el-col :span="8">
+      <el-col :span="6">
         <div style="height: 500px; border: 1px solid #eee; overflow: auto;">
           <el-menu :default-openeds="['1', '2']">
             <el-menu-item index="1-1">选项1</el-menu-item>
@@ -25,7 +25,7 @@
           </el-menu>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6">
         <div style="height: 500px; border: 1px solid #eee; overflow: auto;">
           <el-row class="row-bg">
             <el-col :span="8"><div class="grid-content bg-purple">1</div></el-col>
@@ -43,19 +43,28 @@
           </el-row>
         </div>
       </el-col>
-      <el-col :span="8">
-        <div style="height: 430px; border: 1px solid #eee; overflow: auto; padding-top: 20px;">
-          <el-row v-for="o in 6" :key="o">
-            <el-col :md="12">
-              选项1
-            </el-col>
-            <el-col :md="8">
+      <el-col :span="12">
+        <div style="height: 450px; border: 1px solid #eee; overflow: auto;">
+          <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              label="名称" prop="name">
+            </el-table-column>
+            <el-table-column
+              label="单价" prop="price">
+            </el-table-column>
+            <el-table-column label="数量">
+              <template slot-scope="scope">
                 <el-input-number size="mini" v-model="num6" style="width: 100%;"></el-input-number>
-            </el-col>
-            <el-col :md="4" style="text-align: center;">
-              <el-button size="mini" type="danger" icon="el-icon-delete" circle></el-button>
-            </el-col>
-          </el-row>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                <el-button size="mini" type="danger" icon="el-icon-delete" circle></el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
         <div style="width: 100%; position: relative; height: 48px; border: 1px solid #eee;">
           <el-row type="flex" class="row-bg" justify="space-between" style="height: 100%;">
@@ -85,7 +94,8 @@
     Submenu,
     MenuItem,
     InputNumber,
-    Button
+    Button,
+    Table
   } from 'element-ui'
   import Layout from '../../components/layout'
 
@@ -103,7 +113,55 @@
       Submenu,
       MenuItem,
       InputNumber,
-      Button
+      Button,
+      Table
+    },
+    data () {
+      return {
+        tableData: [{
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }, {
+          name: '测试1',
+          price: '1.00'
+        }]
+      }
     },
     methods: {
       open (link) {
