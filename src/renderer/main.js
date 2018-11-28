@@ -14,11 +14,10 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 var sqlite3 = require('sqlite3').verbose()
-var db = new sqlite3.Database(':memory:')
-db.serialize(function () {
-  db.run('CREATE TABLE if not exists demo (info TEXT,info2 TEXT)')
-})
-db.close()
+const path = require('path')
+console.log(path.join(__dirname, 'electron-stock.db'))
+var db = new sqlite3.Database(path.join(__dirname, 'electron-stock.db'))
+store.state.db = db
 /* eslint-disable no-new */
 new Vue({
   components: { App },
