@@ -52,14 +52,14 @@
               label="名称" prop="name">
             </el-table-column>
             <el-table-column
-              label="单价" prop="price">
+              label="单价" prop="price" width="80">
             </el-table-column>
-            <el-table-column label="数量">
+            <el-table-column label="数量" width="150">
               <template slot-scope="scope">
                 <el-input-number size="mini" v-model="num6" style="width: 100%;"></el-input-number>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="60">
               <template slot-scope="scope">
                 <el-button size="mini" type="danger" icon="el-icon-delete" circle></el-button>
               </template>

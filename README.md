@@ -11,6 +11,9 @@ npm install
 # serve with hot reload at localhost:9080
 npm run dev
 
+# rebuild sqlite3
+./node_modules/.bin/electron-rebuild -w sqlite3 -p
+
 # build electron application for production
 npm run build
 

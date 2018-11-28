@@ -1,14 +1,27 @@
 <template>
   <el-container>
-    <el-header>
-      <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="16"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      </el-row>
-    </el-header>
+    <el-header></el-header>
     <el-main>
-      123
+      <el-row :gutter="12">
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <p><i class="el-icon-delete"></i></p>
+            分类管理
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <p><i class="el-icon-goods"></i></p>
+            商品管理
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <p><i class="el-icon-delete"></i></p>
+            客户管理
+          </el-card>
+        </el-col>
+      </el-row>
     </el-main>
   </el-container>
 </template>
@@ -18,6 +31,7 @@
     Container,
     Header,
     Main,
+    Footer,
     Col,
     Row
   } from 'element-ui'
@@ -27,6 +41,7 @@
       Container,
       Header,
       Main,
+      Footer,
       Col,
       Row
     },
@@ -38,30 +53,10 @@
 </script>
 
 <style>
-.el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
+  .el-card {
+    cursor: pointer;
   }
   .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+    text-align: center;
   }
 </style>

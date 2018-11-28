@@ -3,7 +3,19 @@
     <template slot="body">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="名称">
-          <el-input v-model="form.name"></el-input>
+          <el-col :span="8">
+            <el-input v-model="form.name"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="分类">
+          <el-select v-model="form.value" placeholder="请选择">
+            <el-option
+              v-for="item in form.options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="库存">
           <el-input-number v-model="form.num" :precision="2" :step="1" :max="10" :min="0"></el-input-number>

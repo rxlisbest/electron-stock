@@ -56,8 +56,11 @@
     }
   },
   "dependencies": {
+    "aws-sdk": "^2.363.0",
     "axios": "^0.18.0",
+    "electron-rebuild": "^1.8.2",
     "element-ui": "^2.4.11",
+    "sqlite3": "^4.0.4",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
