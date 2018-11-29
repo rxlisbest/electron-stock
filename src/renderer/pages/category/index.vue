@@ -5,9 +5,8 @@
         <el-col :span="18">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'categories-index' }">分类管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'categories-index' }">列表</el-breadcrumb-item>
           </el-breadcrumb>
         </el-col>
         <el-col :span="6" class="el-col-button">
@@ -29,9 +28,12 @@
           label="名称">
         </el-table-column>
         <el-table-column
-          prop="address"
-          width="180"
+          width="100"
           label="操作">
+          <template slot-scope="scope">
+            <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle></el-button>
+            <el-button @click="del(scope.row.id)" type="danger" icon="el-icon-delete" circle></el-button>
+          </template>
         </el-table-column>
       </el-table>
 
@@ -143,6 +145,12 @@
     methods: {
       open (link) {
         this.$router.push(link)
+      },
+      del (id) {
+        console.log(id)
+      },
+      edit (id) {
+        this.$router.push({path: '/categories/edit', query: {id: id}})
       }
     }
   }

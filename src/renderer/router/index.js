@@ -21,6 +21,11 @@ export default new Router({
       component: require('@/pages/category/add').default
     },
     {
+      path: '/categories/edit',
+      name: 'categories-edit',
+      component: require('@/pages/category/edit').default
+    },
+    {
       path: '/goods',
       name: 'goods-index',
       component: require('@/pages/goods/index').default
