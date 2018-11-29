@@ -1,13 +1,6 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="16"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      </el-row>
-    </el-header>
-    <el-main>
+  <layout index="goods">
+    <template slot="body">
       <el-table
         :data="tableData"
         stripe
@@ -33,8 +26,8 @@
         layout="prev, pager, next"
         :total="1000" class="pagination">
       </el-pagination>
-    </el-main>
-  </el-container>
+    </template>
+  </layout>
 </template>
 
 <script>
@@ -48,6 +41,8 @@
     TableColumn,
     Pagination
   } from 'element-ui'
+  import Layout from '../../components/layout'
+
   export default {
     name: 'landing-page',
     components: {
@@ -58,7 +53,8 @@
       Row,
       Table,
       TableColumn,
-      Pagination
+      Pagination,
+      Layout
     },
     data () {
       return {
