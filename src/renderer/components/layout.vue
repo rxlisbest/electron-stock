@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <!-- <el-header>
       <el-row :gutter="20">
     		<el-menu :default-active="index" class="el-menu-demo" mode="horizontal" @select="handleSelect">
     		  <el-menu-item index="index">首页</el-menu-item>
@@ -9,7 +9,16 @@
           <el-menu-item index="users">客户管理</el-menu-item>
     		</el-menu>
       </el-row>
-    </el-header>
+    </el-header> -->
+
+    <el-aside width="200px">
+      <el-menu :default-active="index" class="el-menu-vertical-demo"  @select="handleSelect" :collapse="false">
+        <el-menu-item index="index">首页</el-menu-item>
+        <el-menu-item index="categories">分类管理</el-menu-item>
+        <el-menu-item index="goods">商品管理</el-menu-item>
+        <el-menu-item index="users">客户管理</el-menu-item>
+      </el-menu>
+    </el-aside>
     <el-main>
       <slot name="body"></slot>
     </el-main>
@@ -21,17 +30,19 @@
     Container,
     Header,
     Main,
-    Col,
-    Row
+    Aside,
+    Menu,
+    MenuItem
   } from 'element-ui'
   export default {
-    name: 'landing-page',
+    name: 'layout',
     components: {
       Container,
       Header,
+      Aside,
       Main,
-      Col,
-      Row
+      Menu,
+      MenuItem
     },
     props: [
       'index'
@@ -49,4 +60,8 @@
 </script>
 
 <style>
+  .el-menu,.el-main {
+    height: 500px;
+    overflow: auto;
+  }
 </style>

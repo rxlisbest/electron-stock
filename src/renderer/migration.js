@@ -32,6 +32,7 @@ db.serialize(function () {
     'price DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
     'amount DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
     'create_time BIGINT(20) NOT NULL DEFAULT 0,' +
+    'user_id INTEGER NOT NULL DEFAULT 0,' +
     'PRIMARY KEY(id)' +
     ')')
   // 用户表

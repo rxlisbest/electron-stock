@@ -1,13 +1,17 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="16"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+  <layout index="categories">
+    <template slot="body">
+      <el-row>
+        <el-col :span="18">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+          </el-breadcrumb>
+        </el-col>
       </el-row>
-    </el-header>
-    <el-main>
+      
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
           <el-input v-model="form.name"></el-input>
@@ -20,8 +24,8 @@
           <el-button>取消</el-button>
         </el-form-item>
       </el-form>
-    </el-main>
-  </el-container>
+    </template>
+  </layout>
 </template>
 
 <script>
@@ -36,6 +40,7 @@
     Input,
     Button
   } from 'element-ui'
+  import Layout from '../../components/layout'
   export default {
     name: 'landing-page',
     components: {
@@ -47,7 +52,8 @@
       Form,
       FormItem,
       Input,
-      Button
+      Button,
+      Layout
     },
     data () {
       return {
