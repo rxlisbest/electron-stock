@@ -4,7 +4,7 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 import store from './store'
-import Migration from './migration'
+import Migration from './db/migration'
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'

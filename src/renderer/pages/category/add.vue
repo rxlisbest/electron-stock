@@ -39,6 +39,15 @@
     Button
   } from 'element-ui'
   import Layout from '../../components/layout'
+
+  import Category from '../../db/category'
+  Category.all(function (err, rows) {
+    console.log(err)
+    console.log(rows)
+  })
+  Category.add({name: 'test', create_time: 1234567890})
+  Category.edit({name: 'test', create_time: 1234567890}, {name: 'test123', create_time: 1234567890})
+
   export default {
     name: 'landing-page',
     components: {
