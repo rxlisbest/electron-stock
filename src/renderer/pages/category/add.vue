@@ -71,11 +71,28 @@
     },
     methods: {
       onSubmit () {
-        if (this.form.name === '') {
-          this.$message.error('请输入分类名称')
+        let _this = this
+        if (_this.form.name === '') {
+          _this.$message.error('请输入分类名称')
         }
-        this.form.create_time = new Date().getTime()
-        Category.add(this.form)
+        let o = {}
+        o.where = {name: _this.form.name}
+        Category.all(o, function (err, rows) {
+          if (err !== null) {
+            _this.$message.error(err)
+            return false
+          }
+          if (rows.length > 0) {
+            _this.$message.error('分类名称重复')
+          } else {
+            _this.form.create_time = new Date().getTime()
+            Category.add(_this.form, function (err, rows) {
+              if (err === null) {
+                _this.$router.push({name: 'categories-index'})
+              }
+            })
+          }
+        })
       }
     }
   }

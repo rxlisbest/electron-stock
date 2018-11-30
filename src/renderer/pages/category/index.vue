@@ -81,7 +81,7 @@
         tableData: [],
         pagination: {
           page: 1,
-          pageSize: 10,
+          pageSize: 7,
           pages: 1
         }
       }
@@ -94,10 +94,32 @@
         this.$router.push(link)
       },
       del (id) {
-        console.log(id)
+        var _this = this
+        this.$confirm('确定删除这条记录?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          Category.del({id: id}, function (err, rows) {
+            if (err === null) {
+              _this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              _this.handleCurrentChange(1)
+            } else {
+              _this.$message.error(err)
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       },
       edit (id) {
-        this.$router.push({path: '/categories/edit', query: {id: id}})
+        this.$router.push({name: 'categories-edit', params: {id: id}})
       },
       handleCurrentChange (page) {
         let _this = this
@@ -106,7 +128,6 @@
         o.pageSize = this.pagination.pageSize
         o.page = page || this.pagination.page
         Category.pagination(o, function (data) {
-          console.log(data)
           _this.tableData = data.list
           _this.pagination.pages = data.pages
           _this.pagination.count = data.count

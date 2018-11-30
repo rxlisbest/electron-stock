@@ -5,10 +5,10 @@ export default {
   _limit: 10,
   _offset: 0,
   tableName: '',
-  add: function (data) {
+  add: function (data, callback) {
     let sql = 'INSERT INTO ' + this.tableName + ' (' + Object.keys(data).join(', ') + ') VALUES (\'' + Object.values(data).join('\', \'') + '\')'
     this._unset()
-    Db.run(sql)
+    Db.run(sql, callback)
   },
   edit: function (where, data, callback) {
     this._where = this.where(where)
@@ -18,13 +18,13 @@ export default {
     }
     let sql = 'UPDATE ' + this.tableName + ' SET ' + dataArr.join(', ') + ' ' + this._where
     this._unset()
-    Db.run(sql)
+    Db.run(sql, callback)
   },
   del: function (where, callback) {
     this._where = this.where(where)
     let sql = 'DELETE FROM ' + this.tableName + this._where
     this._unset()
-    Db.run(sql)
+    Db.run(sql, callback)
   },
   all: function (o, callback) {
     if (o.where !== undefined) {
@@ -85,6 +85,17 @@ export default {
     data.list = list
     callback(data)
     this._unset()
+  },
+  get: function (o, callback) {
+    if (o.where !== undefined) {
+      this._where = this.where(o.where)
+    }
+    if (o.order !== undefined) {
+      this._order = this.order(o.order)
+    }
+    let sql = 'SELECT * FROM ' + this.tableName + this._where + this._order
+    this._unset()
+    Db.get(sql, callback)
   },
   where: function (where) {
     let whereArr = []

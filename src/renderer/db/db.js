@@ -4,10 +4,10 @@ var dbPath = path.join(__dirname, 'electron-stock.db')
 
 export default {
   sqlite3: sqlite3,
-  run: function (sql) {
+  run: function (sql, callback) {
     var db = new this.sqlite3.Database(dbPath)
     db.serialize(function () {
-      db.run(sql)
+      db.run(sql, callback)
     })
     db.close()
   },

@@ -6,17 +6,16 @@
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ name: 'categories-index' }">分类管理</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'categories-add' }">编辑</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'categories-add' }">新增</el-breadcrumb-item>
           </el-breadcrumb>
         </el-col>
       </el-row>
       
       <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="活动形式">
-          <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-form-item label="分类名称">
+          <el-col :span="8">
+            <el-input v-model="form.name"></el-input>
+          </el-col>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -40,6 +39,14 @@
     Button
   } from 'element-ui'
   import Layout from '../../components/layout'
+
+  import Category from '../../db/category'
+  // Category.all(function (err, rows) {
+  //   console.log(err)
+  //   console.log(rows)
+  // })
+  // Category.edit({name: 'test', create_time: 1234567890}, {name: 'test123', create_time: 1234567890})
+
   export default {
     name: 'landing-page',
     components: {
@@ -54,22 +61,55 @@
       Button,
       Layout
     },
+    created () {
+      this.handleInfo()
+    },
     data () {
       return {
         form: {
+          id: 0,
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          create_time: 0
         }
       }
     },
     methods: {
-      open (link) {
+      onSubmit () {
+        let _this = this
+        if (_this.form.name === '') {
+          _this.$message.error('请输入分类名称')
+        }
+        let o = {}
+        o.where = {name: _this.form.name}
+        Category.all(o, function (err, rows) {
+          if (err !== null) {
+            _this.$message.error(err)
+            return false
+          }
+          if (rows.length > 0) {
+            _this.$message.error('分类名称重复')
+          } else {
+            _this.form.create_time = new Date().getTime()
+            Category.edit({id: _this.form.id}, _this.form, function (err, rows) {
+              if (err === null) {
+                _this.$router.push({name: 'categories-index'})
+              }
+            })
+          }
+        })
+      },
+      handleInfo () {
+        let _this = this
+        let id = _this.$route.params.id
+        let o = {}
+        o.where = {id: id}
+        Category.get(o, function (err, row) {
+          if (err === null) {
+            _this.form = row
+          } else {
+            _this.$message.error(err)
+          }
+        })
       }
     }
   }
