@@ -41,12 +41,11 @@
   import Layout from '../../components/layout'
 
   import Category from '../../db/category'
-  Category.all(function (err, rows) {
-    console.log(err)
-    console.log(rows)
-  })
-  Category.add({name: 'test', create_time: 1234567890})
-  Category.edit({name: 'test', create_time: 1234567890}, {name: 'test123', create_time: 1234567890})
+  // Category.all(function (err, rows) {
+  //   console.log(err)
+  //   console.log(rows)
+  // })
+  // Category.edit({name: 'test', create_time: 1234567890}, {name: 'test123', create_time: 1234567890})
 
   export default {
     name: 'landing-page',
@@ -65,7 +64,8 @@
     data () {
       return {
         form: {
-          name: ''
+          name: '',
+          create_time: 0
         }
       }
     },
@@ -74,6 +74,8 @@
         if (this.form.name === '') {
           this.$message.error('请输入分类名称')
         }
+        this.form.create_time = new Date().getTime()
+        Category.add(this.form)
       }
     }
   }

@@ -19,7 +19,7 @@
         stripe
         style="width: 100%">
         <el-table-column
-          prop="date"
+          prop="id"
           label="ID"
           width="80">
         </el-table-column>
@@ -40,8 +40,10 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :current-page="3"
-        :total="1000" class="pagination">
+        :current-page="pagination.page"
+        :page-size="pagination.pageSize"
+        @current-change="handleCurrentChange"
+        :total="pagination.count" class="pagination">
       </el-pagination>
     </template>
   </layout>
@@ -59,6 +61,7 @@
     Pagination
   } from 'element-ui'
   import Layout from '../../components/layout'
+  import Category from '../../db/category'
 
   export default {
     name: 'landing-page',
@@ -75,72 +78,16 @@
     },
     data () {
       return {
-        tableData: [{
-          date: '1',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '3',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '4',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '3',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '4',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '3',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '4',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '3',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '4',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '3',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '4',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        tableData: [],
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          pages: 1
+        }
       }
+    },
+    created () {
+      this.handleCurrentChange()
     },
     methods: {
       open (link) {
@@ -151,6 +98,21 @@
       },
       edit (id) {
         this.$router.push({path: '/categories/edit', query: {id: id}})
+      },
+      handleCurrentChange (page) {
+        let _this = this
+        let o = {}
+        o.order = 'id DESC'
+        o.pageSize = this.pagination.pageSize
+        o.page = page || this.pagination.page
+        Category.pagination(o, function (data) {
+          console.log(data)
+          _this.tableData = data.list
+          _this.pagination.pages = data.pages
+          _this.pagination.count = data.count
+          _this.pagination.page = data.page
+          _this.pagination.pageSize = data.pageSize
+        })
       }
     }
   }

@@ -15,5 +15,10 @@ export default {
     var db = new this.sqlite3.Database(dbPath)
     db.all(sql, callback)
     db.close()
+  },
+  get: function (sql, callback) {
+    var db = new this.sqlite3.Database(dbPath)
+    db.get(sql, callback)
+    db.close()
   }
 }
