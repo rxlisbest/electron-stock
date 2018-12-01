@@ -6,7 +6,7 @@ export default {
   _offset: 0,
   tableName: '',
   add: function (data, callback) {
-    let sql = 'INSERT INTO ' + this.tableName + ' (' + Object.keys(data).join(', ') + ') VALUES (\'' + Object.values(data).join('\', \'') + '\')'
+    let sql = 'INSERT INTO `' + this.tableName + '` (' + Object.keys(data).join(', ') + ') VALUES (\'' + Object.values(data).join('\', \'') + '\')'
     this._unset()
     Db.run(sql, callback)
   },
@@ -16,13 +16,13 @@ export default {
     for (let k of Object.keys(data)) {
       dataArr.push(k + ' = \'' + data[k] + '\'')
     }
-    let sql = 'UPDATE ' + this.tableName + ' SET ' + dataArr.join(', ') + ' ' + this._where
+    let sql = 'UPDATE `' + this.tableName + '` SET ' + dataArr.join(', ') + ' ' + this._where
     this._unset()
     Db.run(sql, callback)
   },
   del: function (where, callback) {
     this._where = this.where(where)
-    let sql = 'DELETE FROM ' + this.tableName + this._where
+    let sql = 'DELETE FROM `' + this.tableName + '`' + this._where
     this._unset()
     Db.run(sql, callback)
   },
@@ -33,7 +33,7 @@ export default {
     if (o.order !== undefined) {
       this._order = this.order(o.order)
     }
-    let sql = 'SELECT * FROM ' + this.tableName + this._where + this._order
+    let sql = 'SELECT * FROM `' + this.tableName + '`' + this._where + this._order
     this._unset()
     Db.all(sql, callback)
   },
@@ -55,7 +55,7 @@ export default {
         o.page = 1
       }
     }
-    let sql = 'SELECT * FROM ' + this.tableName + this._where + this._order + this.limit()
+    let sql = 'SELECT * FROM `' + this.tableName + '`' + this._where + this._order + this.limit()
     let list = await new Promise((resolve, reject) => {
       Db.all(sql, function (err, rows) {
         if (err === null) {
@@ -65,7 +65,7 @@ export default {
         }
       })
     })
-    sql = 'SELECT COUNT(0) AS count FROM ' + this.tableName + this._where + this._order
+    sql = 'SELECT COUNT(0) AS count FROM `' + this.tableName + '`' + this._where + this._order
     let row = await new Promise((resolve, reject) => {
       Db.get(sql, function (err, row) {
         if (err === null) {
@@ -93,7 +93,7 @@ export default {
     if (o.order !== undefined) {
       this._order = this.order(o.order)
     }
-    let sql = 'SELECT * FROM ' + this.tableName + this._where + this._order
+    let sql = 'SELECT * FROM `' + this.tableName + '`' + this._where + this._order
     this._unset()
     Db.get(sql, callback)
   },

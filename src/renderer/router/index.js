@@ -41,6 +41,21 @@ export default new Router({
       component: require('@/pages/goods/edit').default
     },
     {
+      path: '/cart',
+      name: 'cart-index',
+      component: require('@/pages/cart/index').default
+    },
+    {
+      path: '/order',
+      name: 'order-index',
+      component: require('@/pages/order/index').default
+    },
+    {
+      path: '/order/detail',
+      name: 'order-detail',
+      component: require('@/pages/order/detail').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

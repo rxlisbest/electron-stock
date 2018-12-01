@@ -151,7 +151,7 @@
         let _this = this
         Category.all({order: 'id DESC'}, (err, rows) => {
           if (err !== null) {
-            _this.$message.error(err)
+            console.error(err)
             return false
           }
           _this.categories = rows

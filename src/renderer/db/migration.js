@@ -21,12 +21,9 @@ Db.run('' +
 Db.run('' +
   'CREATE TABLE IF NOT EXISTS `order` (' +
   'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
-  'name VARCHAR(255),' +
-  'goods_id INTEGER NOT NULL DEFAULT 0,' +
-  'price DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
-  'amount DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
-  'create_time BIGINT(20) NOT NULL DEFAULT 0,' +
-  'user_id INTEGER NOT NULL DEFAULT 0' +
+  'total DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
+  'user_id INTEGER NOT NULL DEFAULT 0,' +
+  'create_time BIGINT(20) NOT NULL DEFAULT 0' +
   ')')
 // 订单商品表
 Db.run('' +

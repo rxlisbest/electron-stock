@@ -21,6 +21,18 @@
             客户管理
           </el-card>
         </el-col>
+        <el-col :span="8">
+          <el-card shadow="hover" @click.native="open('cart')">
+            <p><i class="el-icon-delete"></i></p>
+            出库
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card shadow="hover" @click.native="open('order')">
+            <p><i class="el-icon-delete"></i></p>
+            订单
+          </el-card>
+        </el-col>
       </el-row>
     </el-main>
   </el-container>
