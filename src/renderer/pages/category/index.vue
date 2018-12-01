@@ -81,7 +81,7 @@
         tableData: [],
         pagination: {
           page: 1,
-          pageSize: 7,
+          pageSize: 8,
           pages: 1
         }
       }
@@ -95,7 +95,7 @@
       },
       del (id) {
         var _this = this
-        this.$confirm('确定删除这条记录?', '提示', {
+        _this.$confirm('确定删除这条记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -112,7 +112,7 @@
             }
           })
         }).catch(() => {
-          this.$message({
+          _this.$message({
             type: 'info',
             message: '已取消删除'
           })

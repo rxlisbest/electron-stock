@@ -61,7 +61,7 @@
 
 <style>
   .el-menu,.el-main {
-    height: 500px;
+    height: 580px;
     overflow: auto;
   }
 </style>

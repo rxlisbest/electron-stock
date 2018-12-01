@@ -1,27 +1,50 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="16"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+  <layout index="goods">
+    <template slot="body">
+      <el-row>
+        <el-col :span="18">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'goods-index' }">商品管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'goods-add' }">新增</el-breadcrumb-item>
+          </el-breadcrumb>
+        </el-col>
       </el-row>
-    </el-header>
-    <el-main>
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.name"></el-input>
+      
+      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px" class="demo-ruleForm">
+        <el-form-item prop="name" label="商品名称">
+          <el-col :span="8">
+            <el-input v-model="form.name"></el-input>
+          </el-col>
         </el-form-item>
-        <el-form-item label="活动形式">
-          <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-form-item prop="category_id" label="分类">
+          <el-select v-model="form.category_id" placeholder="请选择">
+            <el-option
+              v-for="item in categories"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item prop="price" label="单价">
+          <el-input-number v-model="form.price" :precision="2" :step="1" :min="0"></el-input-number>
+        </el-form-item>
+        <el-form-item prop="amount" label="库存">
+          <el-input-number v-model="form.amount" :precision="2" :step="1" :min="0"></el-input-number>
+        </el-form-item>
+        <el-form-item prop="unit" label="单位">
+          <el-col :span="3">
+            <el-input v-model="form.unit"></el-input>
+          </el-col>（例：千克、个... ...）
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
-          <el-button>取消</el-button>
+          <el-button type="primary" @click="onSubmit">提交</el-button>
+          <el-button @click="onCancle">取消</el-button>
         </el-form-item>
       </el-form>
-    </el-main>
-  </el-container>
+    </template>
+  </layout>
 </template>
 
 <script>
@@ -36,6 +59,11 @@
     Input,
     Button
   } from 'element-ui'
+  import Layout from '../../components/layout'
+
+  import Goods from '../../db/goods'
+  import Category from '../../db/category'
+
   export default {
     name: 'landing-page',
     components: {
@@ -47,24 +75,94 @@
       Form,
       FormItem,
       Input,
-      Button
+      Button,
+      Layout
+    },
+    created () {
+      this.handleInfo()
+      this.getCategories()
     },
     data () {
+      let _this = this
+      function repeatName (rule, value, callback) {
+        Goods.all({where: {name: value, id: ['<>', _this.$route.params.id]}}, function (err, rows) {
+          if (err !== null) {
+            callback(new Error(err))
+          }
+          if (rows.length > 0) {
+            callback(new Error())
+          } else {
+            callback()
+          }
+        })
+      }
       return {
         form: {
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          category_id: ''
+        },
+        categories: [],
+        rules: {
+          name: [
+            { required: true, message: '请输入商品名称', trigger: 'blur' },
+            { validator: repeatName, message: '商品名称重复', trigger: 'blur' }
+          ],
+          category_id: [
+            { required: true, message: '请选择分类', trigger: 'change' }
+          ],
+          price: [
+            { required: true, message: '请输入单价', trigger: 'blur' }
+          ],
+          amount: [
+            { required: true, message: '请输入库存', trigger: 'blur' }
+          ],
+          unit: [
+            { required: true, message: '请输入单位', trigger: 'blur' }
+          ]
         }
       }
     },
     methods: {
-      open (link) {
+      onSubmit () {
+        let _this = this
+        _this.$refs.ruleForm.validate((valid) => {
+          if (valid) {
+            _this.form.create_time = new Date().getTime()
+            Goods.edit({id: _this.form.id}, _this.form, function (err, rows) {
+              if (err === null) {
+                _this.$router.push({name: 'goods-index'})
+              } else {
+                console.error(err)
+              }
+            })
+          }
+        })
+      },
+      onCancle () {
+        this.$router.go(-1)
+      },
+      getCategories () {
+        let _this = this
+        Category.all({order: 'id DESC'}, (err, rows) => {
+          if (err !== null) {
+            _this.$message.error(err)
+            return false
+          }
+          _this.categories = rows
+        })
+      },
+      handleInfo () {
+        let _this = this
+        let id = _this.$route.params.id
+        let o = {}
+        o.where = {id: id}
+        Goods.get(o, function (err, row) {
+          if (err === null) {
+            _this.form = row
+          } else {
+            _this.$message.error(err)
+          }
+        })
       }
     }
   }

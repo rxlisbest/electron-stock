@@ -100,7 +100,25 @@ export default {
   where: function (where) {
     let whereArr = []
     for (var k of Object.keys(where)) {
-      whereArr.push(k + ' = \'' + where[k] + '\'')
+      if (typeof where[k] === 'object') {
+      }
+      if (typeof where[k] === 'string') {
+        whereArr.push(k + ' = \'' + where[k] + '\'')
+      }
+      switch (typeof where[k]) {
+        case 'object':
+          whereArr.push(k + ' ' + where[k][0] + ' \'' + where[k][1] + '\'')
+          break
+        case 'number':
+          whereArr.push(k + ' = \'' + where[k] + '\'')
+          break
+        case 'string':
+          whereArr.push(k + ' = \'' + where[k] + '\'')
+          break
+        default:
+          whereArr.push(k + ' = \'' + where[k] + '\'')
+          break
+      }
     }
     return ' WHERE ' + whereArr.join(' AND ')
   },

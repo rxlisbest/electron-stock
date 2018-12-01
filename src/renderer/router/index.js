@@ -31,6 +31,16 @@ export default new Router({
       component: require('@/pages/goods/index').default
     },
     {
+      path: '/goods/add',
+      name: 'goods-add',
+      component: require('@/pages/goods/add').default
+    },
+    {
+      path: '/goods/edit',
+      name: 'goods-edit',
+      component: require('@/pages/goods/edit').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
