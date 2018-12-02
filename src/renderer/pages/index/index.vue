@@ -28,7 +28,7 @@
           </el-card>
         </el-col>
         <el-col :span="8">
-          <el-card shadow="hover" @click.native="open('order')">
+          <el-card shadow="hover" @click.native="open('orders')">
             <p><i class="el-icon-delete"></i></p>
             订单
           </el-card>

@@ -1,12 +1,12 @@
 <template>
-  <layout index="order">
+  <layout index="orders">
     <template slot="body">
       <el-row>
         <el-col :span="18">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'order-index' }">订单管理</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'order-index' }">详情</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'orders-index' }">订单管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'orders-detail' }">详情</el-breadcrumb-item>
           </el-breadcrumb>
         </el-col>
         <el-col :span="6" class="el-col-button">
@@ -25,7 +25,7 @@
         <el-table-column
           label="单价">
           <template slot-scope="scope">
-            ￥{{scope.row.price}} / {{scope.row.unit}}
+            ￥{{scope.row.price.toFixed(2)}} / {{scope.row.unit}}
           </template>
         </el-table-column>
         <el-table-column
@@ -34,16 +34,14 @@
             {{scope.row.amount}} {{scope.row.unit}}
           </template>
         </el-table-column>
+        <el-table-column
+          width="100"
+          label="价格">
+          <template slot-scope="scope">
+             ￥{{getRowTotal(scope.row)}}
+          </template>
+        </el-table-column>
       </el-table>
-
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :current-page="pagination.page"
-        :page-size="pagination.pageSize"
-        @current-change="handleCurrentChange"
-        :total="pagination.count" class="pagination">
-      </el-pagination>
     </template>
   </layout>
 </template>
@@ -62,6 +60,7 @@
   import Layout from '../../components/layout'
   import OrderGoods from '../../db/order_goods'
   import Moment from 'moment'
+  import Decimal from 'decimal.js'
 
   export default {
     name: 'landing-page',
@@ -78,12 +77,7 @@
     },
     data () {
       return {
-        tableData: [],
-        pagination: {
-          page: 1,
-          pageSize: 8,
-          pages: 1
-        }
+        tableData: []
       }
     },
     created () {
@@ -99,18 +93,19 @@
         let id = _this.$route.query.id
         let o = {where: {order_id: id}}
         o.order = 'id DESC'
-        o.pageSize = this.pagination.pageSize
-        o.page = page || this.pagination.page
-        OrderGoods.pagination(o, function (data) {
-          _this.tableData = data.list
-          _this.pagination.pages = data.pages
-          _this.pagination.count = data.count
-          _this.pagination.page = data.page
-          _this.pagination.pageSize = data.pageSize
+        OrderGoods.all(o, function (err, rows) {
+          if (err === null) {
+            _this.tableData = rows
+          } else {
+            console.error(err)
+          }
         })
       },
       goBack () {
         this.$router.go(-1)
+      },
+      getRowTotal (goods) {
+        return new Decimal(goods.amount).mul(new Decimal(goods.price)).toNumber().toFixed(2)
       }
     }
   }

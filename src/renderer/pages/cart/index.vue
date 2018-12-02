@@ -26,7 +26,10 @@
               label="名称" prop="name">
             </el-table-column>
             <el-table-column
-              label="单价" prop="price" width="80">
+              label="单价" width="80">
+              <template slot-scope="scope">
+                ￥{{scope.row.price.toFixed(2)}}
+              </template>
             </el-table-column>
             <el-table-column
               label="库存" prop="amount" width="80">
@@ -49,7 +52,7 @@
               合计
             </el-col>
             <el-col :md="8" style="cart-total-col">
-              ￥{{ order.total }}
+              ￥{{ order.total.toFixed(2) }}
             </el-col>
             <el-col :md="8" style="cart-total-col">
               <el-button type="danger" @click="addOrder">结算</el-button>

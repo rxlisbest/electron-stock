@@ -11,8 +11,8 @@
         </el-col>
       </el-row>
       
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="分类名称">
+      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px" class="demo-ruleForm">
+        <el-form-item prop="name" label="分类名称">
           <el-col :span="8">
             <el-input v-model="form.name"></el-input>
           </el-col>
@@ -65,35 +65,44 @@
       this.handleInfo()
     },
     data () {
+      let _this = this
+      function repeatName (rule, value, callback) {
+        Category.all({where: {name: value, id: ['<>', _this.$route.params.id]}}, function (err, rows) {
+          if (err !== null) {
+            callback(new Error(err))
+          }
+          if (rows.length > 0) {
+            callback(new Error())
+          } else {
+            callback()
+          }
+        })
+      }
       return {
         form: {
           id: 0,
           name: '',
           create_time: 0
+        },
+        rules: {
+          name: [
+            { required: true, message: '请输入分类名称', trigger: 'blur' },
+            { validator: repeatName, message: '分类名称重复', trigger: 'blur' }
+          ]
         }
       }
     },
     methods: {
       onSubmit () {
         let _this = this
-        if (_this.form.name === '') {
-          _this.$message.error('请输入分类名称')
-          return false
-        }
-        let o = {}
-        o.where = {name: _this.form.name, id: ['<>', _this.form.id]}
-        Category.all(o, function (err, rows) {
-          if (err !== null) {
-            _this.$message.error(err)
-            return false
-          }
-          if (rows.length > 0) {
-            _this.$message.error('分类名称重复')
-          } else {
+        _this.$refs.ruleForm.validate((valid) => {
+          if (valid) {
             _this.form.create_time = new Date().getTime()
             Category.edit({id: _this.form.id}, _this.form, function (err, rows) {
               if (err === null) {
                 _this.$router.push({name: 'categories-index'})
+              } else {
+                console.error(err)
               }
             })
           }

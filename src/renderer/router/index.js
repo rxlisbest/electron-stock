@@ -46,14 +46,29 @@ export default new Router({
       component: require('@/pages/cart/index').default
     },
     {
-      path: '/order',
-      name: 'order-index',
+      path: '/orders',
+      name: 'orders-index',
       component: require('@/pages/order/index').default
     },
     {
-      path: '/order/detail',
-      name: 'order-detail',
+      path: '/orders/detail',
+      name: 'orders-detail',
       component: require('@/pages/order/detail').default
+    },
+    {
+      path: '/users',
+      name: 'users-index',
+      component: require('@/pages/user/index').default
+    },
+    {
+      path: '/users/add',
+      name: 'users-add',
+      component: require('@/pages/user/add').default
+    },
+    {
+      path: '/users/edit',
+      name: 'users-edit',
+      component: require('@/pages/user/edit').default
     },
     {
       path: '*',

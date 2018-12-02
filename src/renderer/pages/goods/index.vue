@@ -19,8 +19,7 @@
         stripe
         style="width: 100%">
         <el-table-column
-          prop="id"
-          label="ID"
+          type="index"
           width="80">
         </el-table-column>
         <el-table-column
@@ -30,7 +29,7 @@
         <el-table-column
           label="单价">
           <template slot-scope="scope">
-            ￥{{scope.row.price}} / {{scope.row.unit}}
+            ￥{{scope.row.price.toFixed(2)}} / {{scope.row.unit}}
           </template>
         </el-table-column>
         <el-table-column

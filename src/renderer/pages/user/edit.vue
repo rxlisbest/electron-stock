@@ -1,18 +1,18 @@
 <template>
-  <layout index="categories">
+  <layout index="users">
     <template slot="body">
       <el-row>
         <el-col :span="18">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'categories-index' }">分类管理</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'categories-add' }">新增</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'users-index' }">客户管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'users-add' }">新增</el-breadcrumb-item>
           </el-breadcrumb>
         </el-col>
       </el-row>
       
       <el-form ref="ruleForm" :model="form" :rules="rules" label-width="80px" class="demo-ruleForm">
-        <el-form-item prop="name" label="分类名称">
+        <el-form-item prop="name" label="客户名称">
           <el-col :span="8">
             <el-input v-model="form.name"></el-input>
           </el-col>
@@ -40,12 +40,12 @@
   } from 'element-ui'
   import Layout from '../../components/layout'
 
-  import Category from '../../db/category'
-  // Category.all(function (err, rows) {
+  import User from '../../db/user'
+  // User.all(function (err, rows) {
   //   console.log(err)
   //   console.log(rows)
   // })
-  // Category.edit({name: 'test', create_time: 1234567890}, {name: 'test123', create_time: 1234567890})
+  // User.edit({name: 'test', create_time: 1234567890}, {name: 'test123', create_time: 1234567890})
 
   export default {
     name: 'landing-page',
@@ -61,9 +61,13 @@
       Button,
       Layout
     },
+    created () {
+      this.handleInfo()
+    },
     data () {
+      let _this = this
       function repeatName (rule, value, callback) {
-        Category.all({where: {name: value}}, function (err, rows) {
+        User.all({where: {name: value, id: ['<>', _this.$route.params.id]}}, function (err, rows) {
           if (err !== null) {
             callback(new Error(err))
           }
@@ -76,13 +80,14 @@
       }
       return {
         form: {
+          id: 0,
           name: '',
           create_time: 0
         },
         rules: {
           name: [
-            { required: true, message: '请输入分类名称', trigger: 'blur' },
-            { validator: repeatName, message: '分类名称重复', trigger: 'blur' }
+            { required: true, message: '请输入客户名称', trigger: 'blur' },
+            { validator: repeatName, message: '客户名称重复', trigger: 'blur' }
           ]
         }
       }
@@ -93,9 +98,9 @@
         _this.$refs.ruleForm.validate((valid) => {
           if (valid) {
             _this.form.create_time = new Date().getTime()
-            Category.add(_this.form, function (err, rows) {
+            User.edit({id: _this.form.id}, _this.form, function (err, rows) {
               if (err === null) {
-                _this.$router.push({name: 'categories-index'})
+                _this.$router.push({name: 'users-index'})
               } else {
                 console.error(err)
               }
@@ -105,6 +110,19 @@
       },
       onCancle () {
         this.$router.go(-1)
+      },
+      handleInfo () {
+        let _this = this
+        let id = _this.$route.params.id
+        let o = {}
+        o.where = {id: id}
+        User.get(o, function (err, row) {
+          if (err === null) {
+            _this.form = row
+          } else {
+            _this.$message.error(err)
+          }
+        })
       }
     }
   }

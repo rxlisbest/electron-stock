@@ -1,13 +1,16 @@
 <template>
-  <layout index="orders">
+  <layout index="users">
     <template slot="body">
       <el-row>
         <el-col :span="18">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'orders-index' }">订单管理</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'orders-index' }">列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'users-index' }">客户管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'users-index' }">列表</el-breadcrumb-item>
           </el-breadcrumb>
+        </el-col>
+        <el-col :span="6" class="el-col-button">
+          <el-button type="primary" @click="open({name: 'users-add'})">新增</el-button>
         </el-col>
       </el-row>
 
@@ -20,22 +23,15 @@
           width="80">
         </el-table-column>
         <el-table-column
-          label="金额">
-          <template slot-scope="scope">
-            ￥{{scope.row.total.toFixed(2)}}
-          </template>
+          prop="name"
+          label="名称">
         </el-table-column>
         <el-table-column
-          label="下单时间">
-          <template slot-scope="scope">
-            {{Moment(scope.row.create_time).format("YYYY-MM-DD HH:mm:ss")}}
-          </template>
-        </el-table-column>
-        <el-table-column
-          width="60"
+          width="100"
           label="操作">
           <template slot-scope="scope">
-            <el-button @click="open({name: 'orders-detail', query: {id: scope.row.id}})" type="primary" icon="el-icon-tickets" circle></el-button>
+            <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle></el-button>
+            <el-button @click="del(scope.row.id)" type="danger" icon="el-icon-delete" circle></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -64,8 +60,7 @@
     Pagination
   } from 'element-ui'
   import Layout from '../../components/layout'
-  import Order from '../../db/order'
-  import Moment from 'moment'
+  import User from '../../db/user'
 
   export default {
     name: 'landing-page',
@@ -94,9 +89,36 @@
       this.handleCurrentChange()
     },
     methods: {
-      Moment: Moment,
       open (link) {
         this.$router.push(link)
+      },
+      del (id) {
+        var _this = this
+        _this.$confirm('确定删除这条记录?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          User.del({id: id}, function (err, rows) {
+            if (err === null) {
+              _this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              _this.handleCurrentChange(1)
+            } else {
+              _this.$message.error(err)
+            }
+          })
+        }).catch(() => {
+          _this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
+      },
+      edit (id) {
+        this.$router.push({name: 'users-edit', params: {id: id}})
       },
       handleCurrentChange (page) {
         let _this = this
@@ -104,7 +126,7 @@
         o.order = 'id DESC'
         o.pageSize = this.pagination.pageSize
         o.page = page || this.pagination.page
-        Order.pagination(o, function (data) {
+        User.pagination(o, function (data) {
           _this.tableData = data.list
           _this.pagination.pages = data.pages
           _this.pagination.count = data.count

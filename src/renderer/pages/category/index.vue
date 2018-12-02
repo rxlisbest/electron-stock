@@ -19,8 +19,7 @@
         stripe
         style="width: 100%">
         <el-table-column
-          prop="id"
-          label="ID"
+          type="index"
           width="80">
         </el-table-column>
         <el-table-column
