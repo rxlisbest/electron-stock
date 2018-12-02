@@ -26,6 +26,12 @@
           </template>
         </el-table-column>
         <el-table-column
+          label="客户">
+          <template slot-scope="scope">
+            {{scope.row.user_id}}
+          </template>
+        </el-table-column>
+        <el-table-column
           label="下单时间">
           <template slot-scope="scope">
             {{Moment(scope.row.create_time).format("YYYY-MM-DD HH:mm:ss")}}

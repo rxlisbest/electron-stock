@@ -1,67 +1,68 @@
 <template>
-  <el-container style="height: 580px;">
-    <el-row style="width: 100%;">
-      <el-col :span="6">
-        <div class="category">
-          <el-menu :default-openeds="['1', '2']">
-            <el-menu-item v-for="v in categories" :index="v.id.toString()" @click="getGoods(v.id)">{{ v.name }}</el-menu-item>
-          </el-menu>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="goods">
-          <el-row>
-            <el-col :span="8" v-for="(v, k) in goods">
-              <div :class="{'grid-content bg-purple': k%2 == 0, 'grid-content bg-purple-light': k%2 != 0}" @click="addCart(v)">{{ v.name }}</div>
-            </el-col>
-          </el-row>
-        </div>
-      </el-col>
-      <el-col :span="12">
-        <div class="cart">
-          <el-table
-            :data="cart"
-            style="width: 100%">
-            <el-table-column
-              label="名称" prop="name">
-            </el-table-column>
-            <el-table-column
-              label="单价" width="80">
-              <template slot-scope="scope">
-                ￥{{scope.row.price.toFixed(2)}}
-              </template>
-            </el-table-column>
-            <el-table-column
-              label="库存" prop="amount" width="80">
-            </el-table-column>
-            <el-table-column label="数量" width="150">
-              <template slot-scope="scope">
-                <el-input-number v-model="scope.row.order_amount" size="mini" :min="0" :max="scope.row.amount"></el-input-number>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="60" type=index>
-              <template slot-scope="scope">
-                <el-button size="mini" type="danger" icon="el-icon-delete" circle @click="delCart(scope.$index)"></el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-        <div class="cart-total">
-          <el-row type="flex" class="row-bg" justify="space-between" style="height: 100%;">
-            <el-col :md="8" class="cart-total-col">
-              合计
-            </el-col>
-            <el-col :md="8" style="cart-total-col">
-              ￥{{ order.total.toFixed(2) }}
-            </el-col>
-            <el-col :md="8" style="cart-total-col">
-              <el-button type="danger" @click="addOrder">结算</el-button>
-            </el-col>
-          </el-row>
-        </div>
-        </div>
-      </el-col>
-    </el-row>
+  <el-container style="height: 560px;">
+    <el-col :span="6">
+      <div class="category">
+        <el-menu :default-openeds="['1', '2']">
+          <el-menu-item v-for="v in categories" :index="v.id.toString()" @click="getGoods(v.id)">{{ v.name }}</el-menu-item>
+        </el-menu>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="goods">
+        <el-row>
+          <el-col :span="8" v-for="(v, k) in goods">
+            <div :class="{'grid-content bg-purple': k%2 == 0, 'grid-content bg-purple-light': k%2 != 0}" @click="addCart(v)">{{ v.name }}</div>
+          </el-col>
+        </el-row>
+      </div>
+    </el-col>
+    <el-col :span="12">
+      <div class="cart">
+        <el-table
+          :data="cart"
+          style="width: 100%">
+          <el-table-column
+            label="名称" prop="name">
+          </el-table-column>
+          <el-table-column
+            label="单价" width="80">
+            <template slot-scope="scope">
+              ￥{{scope.row.price.toFixed(2)}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="库存" prop="amount" width="80">
+          </el-table-column>
+          <el-table-column label="数量" width="150">
+            <template slot-scope="scope">
+              <el-input-number v-model="scope.row.order_amount" size="mini" :min="0" :max="scope.row.amount"></el-input-number>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="60" type=index>
+            <template slot-scope="scope">
+              <el-button size="mini" type="danger" icon="el-icon-delete" circle @click="delCart(scope.$index)"></el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="cart-total">
+        <el-row type="flex" class="row-bg" justify="space-between" style="height: 100%;">
+          <el-col :md="4" class="cart-total-col">
+            合计
+          </el-col>
+          <el-col :md="12" style="cart-total-col">
+            ￥{{ order.total.toFixed(2) }}
+          </el-col>
+          <el-col :md="4" style="cart-total-col">
+            <el-button type="primary" icon="el-icon-back" @click="goBack()"></el-button>
+          </el-col>
+          <el-col :md="4" style="cart-total-col">
+            <el-button type="danger" @click="addOrder">结算</el-button>
+          </el-col>
+        </el-row>
+      </div>
+      </div>
+    </el-col>
   </el-container>
 </template>
 
@@ -87,7 +88,7 @@
   import Decimal from 'decimal.js'
 
   export default {
-    name: 'landing-page',
+    name: 'cart-index',
     components: {
       Container,
       Header,
@@ -104,6 +105,7 @@
     },
     created () {
       this.getCategories()
+      this.order.user_id = this.$route.query.user_id || 0
     },
     data () {
       return {
@@ -231,6 +233,9 @@
             message: '已取消结算'
           })
         })
+      },
+      goBack () {
+        this.$router.go(-1)
       }
     }
   }
@@ -272,17 +277,17 @@
     width: 100%;
   }
   .category {
-    height: 580px; 
+    height: 560px; 
     border: 1px solid #eee; 
     overflow: auto;
   }
   .goods {
-    height: 580px; 
+    height: 560px; 
     border: 1px solid #eee; 
     overflow: auto;
   }
   .cart {
-    height: 530px; 
+    height: 510px; 
     border: 1px solid #eee; 
     overflow: auto;
     &-total {

@@ -10,7 +10,8 @@
           </el-breadcrumb>
         </el-col>
         <el-col :span="6" class="el-col-button">
-          <el-button type="primary" @click="goBack()">返回</el-button>
+          <el-button type="primary" icon="el-icon-back" @click="goBack()"></el-button>
+          <el-button type="primary" icon="el-icon-printer" @click="open({name: 'orders-print', query: {id: id}})"></el-button>
         </el-col>
       </el-row>
 
@@ -77,11 +78,13 @@
     },
     data () {
       return {
-        tableData: []
+        tableData: [],
+        id: 0
       }
     },
     created () {
       this.handleCurrentChange()
+      this.id = this.$route.query.id
     },
     methods: {
       Moment: Moment,

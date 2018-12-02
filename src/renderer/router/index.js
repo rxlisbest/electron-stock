@@ -56,6 +56,11 @@ export default new Router({
       component: require('@/pages/order/detail').default
     },
     {
+      path: '/orders/print',
+      name: 'orders-print',
+      component: require('@/pages/order/print').default
+    },
+    {
       path: '/users',
       name: 'users-index',
       component: require('@/pages/user/index').default
