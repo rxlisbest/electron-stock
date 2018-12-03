@@ -1,33 +1,27 @@
 <template>
   <el-container>
-    <!-- <webview src="http://localhost:9080"></webview>
-    <el-col :offset="8" :span="8">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <el-row class="el-row-bottom-0" style="margin-bottom: 0px;">
-            <el-col :span="12"><span>小票</span></el-col>
-            <el-col :span="6">
-              <el-button type="primary" icon="el-icon-back" @click="goBack()" class="button-right"></el-button>
-            </el-col>
-            <el-col :span="6">
-              <el-button type="primary" icon="el-icon-printer" @click="print()" class="button-right"></el-button>
-            </el-col>
-          </el-row>
-        </div>
-        
-      </el-card>
-    </el-col> -->
-    <el-row v-for="v in list" style="width: 100%">
-      <el-col :span="10">{{v.name}}</el-col>
-      <el-col :span="8">￥{{v.price.toFixed(2)}} * {{v.amount}}</el-col>
-      <el-col :span="6" class="el-col-price">￥{{getRowTotal(v)}}</el-col>
-    </el-row>
-    <div class="bottom clearfix" style="width: 100%">
-      <el-row style="width: 100%">
-        <el-col :span="18">时间：{{Moment(order.create_time).format("YYYY-MM-DD HH:mm:ss")}}</el-col>
-        <el-col :span="6" class="el-col-price">￥{{order.total.toFixed(2)}}</el-col>
+    <el-main>
+      <el-row class="el-row-bottom-0">
+        <el-col :span="20"><span>小票</span></el-col>
+        <el-col :span="2">
+          <el-button type="primary" icon="el-icon-back" @click="goBack()" class="button-right"></el-button>
+        </el-col>
+        <el-col :span="2">
+          <el-button type="primary" icon="el-icon-printer" @click="print()" class="button-right"></el-button>
+        </el-col>
       </el-row>
-    </div>
+      <el-row v-for="v in list">
+        <el-col :span="10">{{v.name}}</el-col>
+        <el-col :span="8">￥{{v.price.toFixed(2)}} * {{v.amount}}</el-col>
+        <el-col :span="6" class="el-col-price">￥{{getRowTotal(v)}}</el-col>
+      </el-row>
+      <div class="bottom clearfix">
+        <el-row>
+          <el-col :span="18">时间：{{Moment(order.create_time).format("YYYY-MM-DD HH:mm:ss")}}</el-col>
+          <el-col :span="6" class="el-col-price">￥{{order.total.toFixed(2)}}</el-col>
+        </el-row>
+      </div>
+    </el-main>
   </el-container>
 </template>
 
@@ -131,7 +125,6 @@
         return new Decimal(goods.amount).mul(new Decimal(goods.price)).toNumber().toFixed(2)
       },
       print () {
-        window.document.body.innerHTML = '123'
         ipcRenderer.send('print')
       },
       goBack () {
@@ -156,6 +149,8 @@
   }
   .el-row-bottom-0 {
     margin-bottom: 0px !importment;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
   }
   .el-col-price {
     text-align: right;
