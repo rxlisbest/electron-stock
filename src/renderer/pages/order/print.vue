@@ -3,10 +3,10 @@
     <el-main class="print" style="padding-left: 0px; padding-right: 0px;">
       <el-row class="el-row-bottom-0">
         <el-col :span="2">
-          <el-button type="primary" icon="el-icon-back" @click="goBack()"></el-button>
+          <el-button type="primary" icon="el-icon-back" @click="goBack()" title="返回"></el-button>
         </el-col>
         <el-col :offset="20" :span="2">
-          <el-button type="primary" icon="el-icon-printer" @click="print()" class="button-right"></el-button>
+          <el-button type="primary" icon="el-icon-printer" @click="print()" class="button-right" title="打印"></el-button>
         </el-col>
       </el-row>
       <el-row v-for="v in list">

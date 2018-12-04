@@ -10,8 +10,8 @@
           </el-breadcrumb>
         </el-col>
         <el-col :span="6" class="el-col-button">
-          <el-button type="primary" icon="el-icon-back" @click="goBack()"></el-button>
-          <el-button type="primary" icon="el-icon-printer" @click="open({name: 'orders-print', query: {id: id}})"></el-button>
+          <el-button type="primary" icon="el-icon-back" @click="goBack()" title="返回"></el-button>
+          <el-button type="primary" icon="el-icon-printer" @click="open({name: 'orders-print', query: {id: id}})" title="打印"></el-button>
         </el-col>
       </el-row>
 

@@ -30,9 +30,9 @@
           width="160"
           label="操作">
           <template slot-scope="scope">
-            <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle></el-button>
-            <el-button @click="del(scope.row.id)" type="danger" icon="el-icon-delete" circle></el-button>
-            <el-button @click="open({name: 'cart-index', query: {user_id: scope.row.id}})" type="success" icon="el-icon-sold-out" circle></el-button>
+            <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
+            <el-button @click="del(scope.row.id)" type="danger" icon="el-icon-delete" circle title="删除"></el-button>
+            <el-button @click="open({name: 'cart-index', query: {user_id: scope.row.id}})" type="success" icon="el-icon-sold-out" circle title="出库"></el-button>
           </template>
         </el-table-column>
       </el-table>

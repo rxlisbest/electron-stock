@@ -41,7 +41,7 @@
           width="60"
           label="操作">
           <template slot-scope="scope">
-            <el-button @click="open({name: 'orders-detail', query: {id: scope.row.id}})" type="primary" icon="el-icon-tickets" circle></el-button>
+            <el-button @click="open({name: 'orders-detail', query: {id: scope.row.id}})" type="primary" icon="el-icon-tickets" circle title="详情"></el-button>
           </template>
         </el-table-column>
       </el-table>
