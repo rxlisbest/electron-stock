@@ -47,16 +47,16 @@
       </div>
       <div class="cart-total">
         <el-row type="flex" class="row-bg" justify="space-between" style="height: 100%;">
-          <el-col :md="4" class="cart-total-col">
+          <el-col :span="4" class="cart-total-col">
             合计
           </el-col>
-          <el-col :md="12" style="cart-total-col">
+          <el-col :span="12" class="cart-total-col">
             ￥{{ order.total.toFixed(2) }}
           </el-col>
-          <el-col :md="4" style="cart-total-col">
+          <el-col :span="4" class="cart-total-col">
             <el-button type="primary" icon="el-icon-back" @click="goBack()"></el-button>
           </el-col>
-          <el-col :md="4" style="cart-total-col">
+          <el-col :span="4" class="cart-total-col">
             <el-button type="danger" @click="addOrder">结算</el-button>
           </el-col>
         </el-row>
@@ -221,7 +221,11 @@
               }
               _this.$message({
                 type: 'success',
-                message: '结算成功!'
+                message: '结算成功!',
+                duration: 1000,
+                onClose: () => {
+                  _this.$router.push({name: 'orders-print', query: {id: orderId}})
+                }
               })
             } else {
               console.error(err)
@@ -242,6 +246,9 @@
 </script>
 
 <style>
+.el-menu {
+  height: 560px;
+}
 .el-row {
     margin-bottom: 20px;
     &:last-child {
@@ -299,5 +306,8 @@
         text-align: center;
       }
     }
+  }
+  .cart-total-col {
+    text-align: center;
   }
 </style>

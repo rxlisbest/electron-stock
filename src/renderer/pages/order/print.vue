@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-main class="print">
+    <el-main class="print" style="padding-left: 0px; padding-right: 0px;">
       <el-row class="el-row-bottom-0">
         <el-col :span="20"><span>小票</span></el-col>
         <el-col :span="2">

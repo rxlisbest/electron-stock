@@ -10,7 +10,7 @@
           </el-breadcrumb>
         </el-col>
         <el-col :span="6" class="el-col-button">
-          <el-button type="primary" @click="open({name: 'goods-add'})">新增</el-button>
+          <el-button type="primary" @click="open({name: 'goods-add'})" icon="el-icon-plus"></el-button>
         </el-col>
       </el-row>
 
