@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-main>
+    <el-main class="print">
       <el-row class="el-row-bottom-0">
         <el-col :span="20"><span>小票</span></el-col>
         <el-col :span="2">
@@ -154,5 +154,8 @@
   }
   .el-col-price {
     text-align: right;
+  }
+  .print {
+    font-size: 12px;
   }
 </style>

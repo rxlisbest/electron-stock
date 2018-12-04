@@ -98,6 +98,7 @@
                 _this.$router.push({name: 'categories-index'})
               } else {
                 console.error(err)
+                _this.$router.push({name: 'categories-index'})
               }
             })
           }
