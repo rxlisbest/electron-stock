@@ -2,11 +2,10 @@
   <el-container>
     <el-main class="print" style="padding-left: 0px; padding-right: 0px;">
       <el-row class="el-row-bottom-0">
-        <el-col :span="20"><span>小票</span></el-col>
         <el-col :span="2">
-          <el-button type="primary" icon="el-icon-back" @click="goBack()" class="button-right"></el-button>
+          <el-button type="primary" icon="el-icon-back" @click="goBack()"></el-button>
         </el-col>
-        <el-col :span="2">
+        <el-col :offset="20" :span="2">
           <el-button type="primary" icon="el-icon-printer" @click="print()" class="button-right"></el-button>
         </el-col>
       </el-row>
