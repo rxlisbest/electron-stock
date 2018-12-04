@@ -1,7 +1,8 @@
 var sqlite3 = require('sqlite3').verbose()
 const path = require('path')
-var dbPath = path.join(__dirname, 'electron-stock.db')
-
+let dbPath = path.resolve(__dirname, '../../../electron-stock.db')
+// let dbPath = 'db.db'
+console.log(dbPath)
 export default {
   sqlite3: sqlite3,
   run: function (sql, callback) {

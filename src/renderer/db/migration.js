@@ -2,14 +2,12 @@ import Db from './db'
 
 export default {
   run: () => {
-    console.log(2)
-    let result = Db.run('' +
+    Db.run('' +
       'CREATE TABLE IF NOT EXISTS category (' +
       'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
       'name VARCHAR(255),' +
       'create_time BIGINT(20) NOT NULL DEFAULT 0' +
       ')')
-    console.log(result)
     // 商品表
     Db.run('' +
       'CREATE TABLE IF NOT EXISTS goods (' +
