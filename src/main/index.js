@@ -14,7 +14,6 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-console.log(winURL)
 function createWindow () {
   /**
    * Initial window options

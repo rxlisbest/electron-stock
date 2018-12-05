@@ -28,7 +28,7 @@
         <el-table-column
           label="客户">
           <template slot-scope="scope">
-            {{scope.row.user_id}}
+            {{scope.row.user_id? user[scope.row.user_id]: '--'}}
           </template>
         </el-table-column>
         <el-table-column
@@ -71,6 +71,7 @@
   } from 'element-ui'
   import Layout from '../../components/layout'
   import Order from '../../db/order'
+  import User from '../../db/user'
   import Moment from 'moment'
 
   export default {
@@ -93,11 +94,13 @@
           page: 1,
           pageSize: 8,
           pages: 1
-        }
+        },
+        user: {}
       }
     },
     created () {
       this.handleCurrentChange()
+      this.handleUser()
     },
     methods: {
       Moment: Moment,
@@ -116,6 +119,22 @@
           _this.pagination.count = data.count
           _this.pagination.page = data.page
           _this.pagination.pageSize = data.pageSize
+        })
+      },
+      handleUser () {
+        let _this = this
+        let o = {}
+        o.order = 'id DESC'
+        User.all(o, function (err, rows) {
+          if (err === null) {
+            let data = {}
+            for (let k in rows) {
+              data[rows[k].id] = rows[k].name
+            }
+            _this.user = data
+          } else {
+            console.error(err)
+          }
         })
       }
     }
