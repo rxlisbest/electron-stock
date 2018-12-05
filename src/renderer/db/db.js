@@ -5,6 +5,7 @@ let dbPath = path.resolve(__dirname, '../../../electron-stock.db')
 console.log(dbPath)
 export default {
   sqlite3: sqlite3,
+  dbPath: dbPath,
   run: function (sql, callback) {
     var db = new this.sqlite3.Database(dbPath)
     db.serialize(function () {

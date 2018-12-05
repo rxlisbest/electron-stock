@@ -87,7 +87,7 @@
   import Category from '../../db/category'
   import Goods from '../../db/goods'
   import Order from '../../db/order'
-  import OrderGoods from '../../db/order_goods'
+  // import OrderGoods from '../../db/order_goods'
   import Decimal from 'decimal.js'
 
   export default {
@@ -196,43 +196,15 @@
             })
             return false
           }
-          _this.order.create_time = new Date().getTime()
-          Order.add(_this.order, function (err, rows) {
-            if (err === null) {
-              let orderId = this.lastID
-              for (let v of _this.cart) {
-                if (v.order_amount > 0) {
-                  let orderGoods = JSON.parse(JSON.stringify(v))
-                  // OrderGoods.edit({id: orderGoods.id}, {amount: }, function (err, rows) {
-                  //   if (err !== null) {
-                  //     console.error(err)
-                  //   }
-                  // })
-
-                  orderGoods.amount = orderGoods.order_amount
-                  orderGoods.create_time = new Date().getTime()
-                  orderGoods.order_id = orderId
-                  delete orderGoods.order_amount
-                  delete orderGoods.id
-                  delete orderGoods.category_id
-                  OrderGoods.add(orderGoods, function (err, rows) {
-                    if (err !== null) {
-                      console.error(err)
-                    }
-                  })
-                }
+          Order.addOrder(_this.order, _this.cart, (orderId) => {
+            _this.$message({
+              type: 'success',
+              message: '结算成功!',
+              duration: 1000,
+              onClose: () => {
+                _this.$router.push({name: 'orders-print', query: {id: orderId}})
               }
-              _this.$message({
-                type: 'success',
-                message: '结算成功!',
-                duration: 1000,
-                onClose: () => {
-                  _this.$router.push({name: 'orders-print', query: {id: orderId}})
-                }
-              })
-            } else {
-              console.error(err)
-            }
+            })
           })
         }).catch(() => {
           _this.$message({
