@@ -63,7 +63,6 @@
 
 <style>
   .el-menu,.el-main {
-    height: 580px;
     overflow: auto;
   }
 </style>

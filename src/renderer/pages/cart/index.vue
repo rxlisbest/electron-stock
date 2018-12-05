@@ -31,7 +31,10 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="库存" prop="amount" width="80">
+            label="库存" width="80">
+            <template slot-scope="scope">
+              {{scope.row.amount}} {{scope.row.unit}}
+            </template>
           </el-table-column>
           <el-table-column label="数量" width="150">
             <template slot-scope="scope">
@@ -307,7 +310,7 @@
       }
     }
   }
-  .cart-total-col {
+  .cart-total .el-col{
     text-align: center;
   }
 </style>
