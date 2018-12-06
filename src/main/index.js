@@ -27,14 +27,14 @@ function createWindow () {
   })
 
   mainWindow.loadURL(winURL)
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 
   ipcMain.on('print', (event, arg) => {
     mainWindow.webContents.print({
-      silent: false,
+      silent: true,
       printBackground: false,
       deviceName: ''
     }, (error) => {
