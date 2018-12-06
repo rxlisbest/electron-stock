@@ -38,10 +38,11 @@
           </template>
         </el-table-column>
         <el-table-column
-          width="60"
+          width="100"
           label="操作">
           <template slot-scope="scope">
             <el-button @click="open({name: 'orders-detail', query: {id: scope.row.id}})" type="primary" icon="el-icon-tickets" circle title="详情"></el-button>
+            <el-button @click="del(scope.row.id)" type="danger" icon="el-icon-delete" circle title="删除"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -106,6 +107,27 @@
       Moment: Moment,
       open (link) {
         this.$router.push(link)
+      },
+      del (id) {
+        let _this = this
+        _this.$confirm('确定删除这条记录?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          Order.delOrder(id, () => {
+            _this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            _this.handleCurrentChange(1)
+          })
+        }).catch(() => {
+          _this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       },
       handleCurrentChange (page) {
         let _this = this

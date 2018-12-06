@@ -29,9 +29,10 @@ export default {
       ')')
     // 订单商品表
     Db.run('' +
-      'CREATE TABLE IF NOT EXISTS order_goods (' +
+      'CREATE TABLE IF NOT EXISTS `order_goods` (' +
       'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
       'name VARCHAR(255),' +
+      'goods_id INTEGER NOT NULL DEFAULT 0,' +
       'order_id INTEGER NOT NULL DEFAULT 0,' +
       'price DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
       'amount DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
@@ -40,7 +41,7 @@ export default {
       ')')
     // 用户表
     Db.run('' +
-      'CREATE TABLE IF NOT EXISTS user (' +
+      'CREATE TABLE IF NOT EXISTS `user` (' +
       'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
       'name VARCHAR(255),' +
       'phone VARCHAR(255),' +
