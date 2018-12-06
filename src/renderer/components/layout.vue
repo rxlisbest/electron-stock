@@ -18,7 +18,6 @@
         <el-menu-item index="goods">商品管理</el-menu-item>
         <el-menu-item index="users">客户管理</el-menu-item>
         <el-menu-item index="orders">订单管理</el-menu-item>
-        <el-menu-item index="cart">出库</el-menu-item>
       </el-menu>
     </el-aside>
     <el-main>

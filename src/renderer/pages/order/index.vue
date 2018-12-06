@@ -110,7 +110,7 @@
       },
       del (id) {
         let _this = this
-        _this.$confirm('确定删除这条记录?', '提示', {
+        _this.$confirm('删除订单后，订单商品数量会加回到相应商品的库存！确定删除订单?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
