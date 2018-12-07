@@ -19,6 +19,15 @@ export default {
       'unit VARCHAR(255),' +
       'create_time BIGINT(20) NOT NULL DEFAULT 0' +
       ')')
+    // 商品入库表
+    Db.run('' +
+      'CREATE TABLE IF NOT EXISTS goods_log (' +
+      'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+      'goods_id INTEGER NOT NULL DEFAULT 0,' +
+      'price DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
+      'amount DECIMAL(8,2) NOT NULL DEFAULT 0.00,' +
+      'create_time BIGINT(20) NOT NULL DEFAULT 0' +
+      ')')
     // 订单表
     Db.run('' +
       'CREATE TABLE IF NOT EXISTS `order` (' +

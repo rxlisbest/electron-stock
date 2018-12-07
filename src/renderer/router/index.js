@@ -41,6 +41,16 @@ export default new Router({
       component: require('@/pages/goods/edit').default
     },
     {
+      path: '/goods/amount',
+      name: 'goods-amount',
+      component: require('@/pages/goods/amount').default
+    },
+    {
+      path: '/goods/detail',
+      name: 'goods-detail',
+      component: require('@/pages/goods/detail').default
+    },
+    {
       path: '/cart',
       name: 'cart-index',
       component: require('@/pages/cart/index').default

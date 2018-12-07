@@ -10,12 +10,12 @@
           </el-breadcrumb>
         </el-col>
         <el-col :span="6" class="el-col-button">
-          <el-button type="primary" @click="open({name: 'goods-add'})" icon="el-icon-plus"></el-button>
+          <el-button type="primary" icon="el-icon-back" @click="goBack()" title="返回"></el-button>
         </el-col>
       </el-row>
 
       <el-table
-        :data="tableData"
+        :data="list"
         stripe
         style="width: 100%">
         <el-table-column
@@ -23,28 +23,27 @@
           width="80">
         </el-table-column>
         <el-table-column
-          prop="name"
           label="名称">
+          <template slot-scope="scope">
+            {{goods.name}}
+          </template>
         </el-table-column>
-        <<!-- el-table-column
+        <el-table-column
           label="单价">
           <template slot-scope="scope">
-            ￥{{scope.row.price.toFixed(2)}} / {{scope.row.unit}}
+            ￥{{scope.row.price.toFixed(2)}} / {{goods.unit}}
           </template>
-        </el-table-column> -->
+        </el-table-column>
         <el-table-column
-          label="库存">
+          label="入库数量">
           <template slot-scope="scope">
             {{scope.row.amount}} {{scope.row.unit}}
           </template>
         </el-table-column>
         <el-table-column
-          width="200"
+          width="60"
           label="操作">
           <template slot-scope="scope">
-            <el-button @click="open({name: 'goods-amount', query: {id: scope.row.id}})" type="primary" icon="el-icon-plus" circle title="入库"></el-button>
-            <el-button @click="open({name: 'goods-detail', query: {id: scope.row.id}})" type="primary" icon="el-icon-tickets" circle title="详情"></el-button>
-            <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle title="编辑"></el-button>
             <el-button @click="del(scope.row.id)" type="danger" icon="el-icon-delete" circle title="删除"></el-button>
           </template>
         </el-table-column>
@@ -74,6 +73,7 @@
     Pagination
   } from 'element-ui'
   import Layout from '../../components/layout'
+  import GoodsLog from '../../db/goods_log'
   import Goods from '../../db/goods'
 
   export default {
@@ -91,7 +91,8 @@
     },
     data () {
       return {
-        tableData: [],
+        goods: {},
+        list: [],
         pagination: {
           page: 1,
           pageSize: 8,
@@ -100,6 +101,7 @@
       }
     },
     created () {
+      this.handleInfo()
       this.handleCurrentChange()
     },
     methods: {
@@ -108,21 +110,17 @@
       },
       del (id) {
         var _this = this
-        this.$confirm('确定删除这条记录?', '提示', {
+        this.$confirm('删除入库记录后，商品的库存会减少相应数量！确定删除入库记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          Goods.del({id: id}, function (err, rows) {
-            if (err === null) {
-              _this.$message({
-                type: 'success',
-                message: '删除成功!'
-              })
-              _this.handleCurrentChange(1)
-            } else {
-              _this.$message.error(err)
-            }
+          Goods.delGoodsLog(id, function () {
+            _this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            _this.handleCurrentChange(1)
           })
         }).catch(() => {
           this.$message({
@@ -131,22 +129,36 @@
           })
         })
       },
-      edit (id) {
-        this.$router.push({name: 'goods-edit', params: {id: id}})
+      handleInfo (page) {
+        let _this = this
+        let id = _this.$route.query.id
+        let o = {}
+        o.where = {id: id}
+        Goods.get(o, function (err, row) {
+          if (err === null) {
+            _this.goods = row
+          } else {
+            console.error(err)
+          }
+        })
       },
       handleCurrentChange (page) {
         let _this = this
         let o = {}
         o.order = 'id DESC'
+        o.where = {goods_id: _this.$route.query.id}
         o.pageSize = this.pagination.pageSize
         o.page = page || this.pagination.page
-        Goods.pagination(o, function (data) {
-          _this.tableData = data.list
+        GoodsLog.pagination(o, function (data) {
+          _this.list = data.list
           _this.pagination.pages = data.pages
           _this.pagination.count = data.count
           _this.pagination.page = data.page
           _this.pagination.pageSize = data.pageSize
         })
+      },
+      goBack () {
+        this.$router.go(-1)
       }
     }
   }
