@@ -72,7 +72,7 @@ cloneModel.addGoodsLog = async (goods, callback) => {
   }
   result = await new Promise((resolve, reject) => {
     // console.log(parseFloat(v.order_amount))
-    let sql = 'UPDATE `goods` SET `amount` = `amount` + ' + goods.amount + ' WHERE id = ' + goods.id + ';'
+    let sql = 'UPDATE `goods` SET `amount` = `amount` + ' + goods.amount + ', `price` = ' + goods.price + ' WHERE id = ' + goods.id + ';'
     db.run(sql, (err) => {
       resolve(err)
     })

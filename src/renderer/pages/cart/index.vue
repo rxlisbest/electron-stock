@@ -25,20 +25,20 @@
             label="名称" prop="name">
           </el-table-column>
           <el-table-column
-            label="单价" width="80">
+            label="单价" width="140">
             <template slot-scope="scope">
-              ￥{{scope.row.price.toFixed(2)}}
+              <el-input-number controls-position="right" v-model="scope.row.price" size="mini" :min="0"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column
-            label="库存" width="80">
+            label="库存" width="60">
             <template slot-scope="scope">
               {{scope.row.amount}} {{scope.row.unit}}
             </template>
           </el-table-column>
-          <el-table-column label="数量" width="150">
+          <el-table-column label="数量" width="140">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.order_amount" size="mini" :min="0" :max="scope.row.amount"></el-input-number>
+              <el-input-number controls-position="right" v-model="scope.row.order_amount" size="mini" :min="0" :max="scope.row.amount"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="60" type=index>

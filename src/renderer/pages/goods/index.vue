@@ -26,12 +26,12 @@
           prop="name"
           label="名称">
         </el-table-column>
-        <<!-- el-table-column
+        <el-table-column
           label="单价">
           <template slot-scope="scope">
             ￥{{scope.row.price.toFixed(2)}} / {{scope.row.unit}}
           </template>
-        </el-table-column> -->
+        </el-table-column>
         <el-table-column
           label="库存">
           <template slot-scope="scope">
