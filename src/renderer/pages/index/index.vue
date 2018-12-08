@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header></el-header>
-    <el-main>
+    <el-main class="my-index">
       <el-row :gutter="30">
         <el-col :span="12">
           <el-card shadow="hover" @click.native="open('categories')">
@@ -63,7 +63,7 @@
 </script>
 
 <style>
-  .el-card {
+  .my-index .el-card {
     cursor: pointer;
     font-size: 30px;
     text-align: center;
