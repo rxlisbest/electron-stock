@@ -61,6 +61,7 @@
   } from 'element-ui'
   import Layout from '../../components/layout'
   import Category from '../../db/category'
+  import Goods from '../../db/goods'
 
   export default {
     name: 'landing-page',
@@ -99,15 +100,33 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          Category.del({id: id}, function (err, rows) {
-            if (err === null) {
+          new Promise((resolve, reject) => {
+            let o = {where: {category_id: id}}
+            Goods.all(o, (err, rows) => {
+              if (err === null && rows.length <= 0) {
+                resolve()
+              } else {
+                reject(err || '分类下有商品，不能删除！')
+              }
+            })
+          }).then(() => {
+            Category.del({id: id}, function (err, rows) {
+              if (err === null) {
+                _this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                })
+                _this.handleCurrentChange(1)
+              } else {
+                _this.$message.error(err)
+              }
+            })
+          }).catch((err) => {
+            if (err !== null) {
               _this.$message({
-                type: 'success',
-                message: '删除成功!'
+                type: 'error',
+                message: err
               })
-              _this.handleCurrentChange(1)
-            } else {
-              _this.$message.error(err)
             }
           })
         }).catch(() => {
