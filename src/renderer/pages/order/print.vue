@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="print-container">
     <el-main class="print" style="padding-left: 0px; padding-right: 0px;">
       <el-row class="el-row-bottom-0" v-if="visiable">
         <el-col :span="2">
@@ -191,5 +191,8 @@
   .print {
     cursor: pointer;
     font-size: 12px;
+  }
+  .print-container {
+    margin: -8px;
   }
 </style>
