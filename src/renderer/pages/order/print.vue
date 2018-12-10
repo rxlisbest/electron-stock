@@ -27,7 +27,7 @@
         </el-row>
         <el-row v-for="v in list">
           <el-col :span="10">{{v.name}}</el-col>
-          <el-col :span="8">{{v.price}}*{{v.amount}}</el-col>
+          <el-col :span="8">{{v.price.toFixed(2)}} * {{v.amount}}</el-col>
           <el-col :span="6" class="el-col-price">{{getRowTotal(v)}}</el-col>
         </el-row>
         <div class="bottom clearfix">
