@@ -181,24 +181,21 @@
     text-align: left;
   }
   .bottom {
-    border-top: 2px solid #000000;
-  }
-  .box-card {
-    font-size: 12px;
+    border-top: 1px solid #000000;
   }
   .button-right {
     float: right;
   }
   .el-row-bottom-0 {
     margin-bottom: 0px !importment;
-    border-bottom: 2px solid #000000;
+    border-bottom: 1px solid #000000;
   }
   .el-col-price {
     text-align: right;
   }
   .print {
     cursor: pointer;
-    font-size: 12px;
+    font-size: 9px;
   }
   .print-container {
     margin: -8px;
