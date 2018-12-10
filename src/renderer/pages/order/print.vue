@@ -22,12 +22,12 @@
         </el-row>
         <el-row class="el-row-bottom-0">
           <el-col :span="10">名称</el-col>
-          <el-col :span="8">数量</el-col>
+          <el-col :span="8">单价*数量</el-col>
           <el-col :span="6" class="el-col-price">小结</el-col>
         </el-row>
         <el-row v-for="v in list">
           <el-col :span="10">{{v.name}}</el-col>
-          <el-col :span="8">{{v.amount}}</el-col>
+          <el-col :span="8">{{v.price}}*{{v.amount}}</el-col>
           <el-col :span="6" class="el-col-price">{{getRowTotal(v)}}</el-col>
         </el-row>
         <div class="bottom clearfix">
