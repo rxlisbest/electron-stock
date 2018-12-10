@@ -15,15 +15,24 @@
             客户：{{user.name}}
           </el-col>
         </el-row>
+        <el-row class="el-row-bottom-0">
+          <el-col :span="24">
+            时间：{{Moment(order.create_time).format("YYYY-MM-DD HH:mm:ss")}}
+          </el-col>
+        </el-row>
+        <el-row class="el-row-bottom-0">
+          <el-col :span="10">名称</el-col>
+          <el-col :span="8">数量</el-col>
+          <el-col :span="6" class="el-col-price">小结</el-col>
+        </el-row>
         <el-row v-for="v in list">
           <el-col :span="10">{{v.name}}</el-col>
-          <el-col :span="8">￥{{v.price.toFixed(2)}} * {{v.amount}}</el-col>
-          <el-col :span="6" class="el-col-price">￥{{getRowTotal(v)}}</el-col>
+          <el-col :span="8">{{v.amount}}</el-col>
+          <el-col :span="6" class="el-col-price">{{getRowTotal(v)}}</el-col>
         </el-row>
         <div class="bottom clearfix">
           <el-row>
-            <el-col :span="18">时间：{{Moment(order.create_time).format("YYYY-MM-DD HH:mm:ss")}}</el-col>
-            <el-col :span="6" class="el-col-price">￥{{order.total.toFixed(2)}}</el-col>
+            <el-col :offset="18" :span="6" class="el-col-price">{{order.total.toFixed(2)}}</el-col>
           </el-row>
         </div>
       </div>
@@ -172,7 +181,7 @@
     text-align: left;
   }
   .bottom {
-    border-top: 1px solid #eee;
+    border-top: 2px solid #000000;
   }
   .box-card {
     font-size: 12px;
@@ -182,7 +191,7 @@
   }
   .el-row-bottom-0 {
     margin-bottom: 0px !importment;
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #000000;
   }
   .el-col-price {
     text-align: right;
