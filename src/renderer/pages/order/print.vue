@@ -183,7 +183,6 @@
   .el-row-bottom-0 {
     margin-bottom: 0px !importment;
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
   }
   .el-col-price {
     text-align: right;
@@ -194,5 +193,11 @@
   }
   .print-container {
     margin: -8px;
+  }
+  .print-container .el-row {
+    margin-bottom: 0px;
+  }
+  .print-container .el-main {
+    padding: 0px;
   }
 </style>
