@@ -13,7 +13,14 @@
           <el-button type="primary" @click="open({name: 'users-add'})" icon="el-icon-plus"></el-button>
         </el-col>
       </el-row>
-
+      <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+        <el-form-item label="客户名称">
+          <el-input v-model="searchForm.name" placeholder="客户名称"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSearch">查询</el-button>
+        </el-form-item>
+      </el-form>
       <el-table
         :data="tableData"
         stripe
@@ -81,8 +88,11 @@
         tableData: [],
         pagination: {
           page: 1,
-          pageSize: 8,
+          pageSize: 7,
           pages: 1
+        },
+        searchForm: {
+          name: ''
         }
       }
     },
@@ -125,6 +135,9 @@
         let _this = this
         let o = {}
         o.order = 'id DESC'
+        if (_this.searchForm.name) {
+          o.where = {name: ['LIKE', '%' + _this.searchForm.name + '%']}
+        }
         o.pageSize = this.pagination.pageSize
         o.page = page || this.pagination.page
         User.pagination(o, function (data) {
@@ -134,6 +147,9 @@
           _this.pagination.page = data.page
           _this.pagination.pageSize = data.pageSize
         })
+      },
+      onSearch () {
+        this.handleCurrentChange()
       }
     }
   }
