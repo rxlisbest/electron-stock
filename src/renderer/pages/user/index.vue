@@ -14,11 +14,11 @@
         </el-col>
       </el-row>
       <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-        <el-form-item label="客户名称">
-          <el-input v-model="searchForm.name" placeholder="客户名称"></el-input>
+        <el-form-item label="名称">
+          <el-input v-model="searchForm.name" placeholder="名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSearch">查询</el-button>
+          <el-button type="primary" @click="onSearch" icon="el-icon-search"></el-button>
         </el-form-item>
       </el-form>
       <el-table
